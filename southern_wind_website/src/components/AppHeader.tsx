@@ -3,15 +3,17 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
-import { Avatar } from '@mui/material';
+import { Avatar, Link } from '@mui/material';
 import logo from '../app/assets/icons/gio-nam-transparent-logo.png'
+import MenuIcon from '@mui/icons-material/Menu';
+
+import AppHeaderItem from './AppHeaderItems';
 
 export default function AppHeader() {
     const headerItems = [
         {
             id: 0,
             title: "About Us",
-            href: "/about",
             contents: [
                 {
                     id: 0,
@@ -32,8 +34,19 @@ export default function AppHeader() {
         },
         {
             id: 2,
-            title: "Our Pride",
-            href: "/our-pride",
+            title: "Media",
+            contents: [
+                {
+                    id: 0,
+                    title: "Gallery",
+                    href: "/media/gallery",
+                },
+                {
+                    id: 1,
+                    title: "Our Pride",
+                    href: "/media/our-pride",
+                },
+            ],
         },
         {
             id: 3,
@@ -49,19 +62,28 @@ export default function AppHeader() {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="sticky">
-                <Toolbar sx={{ px: '6em !important' }}>
-                    <Button startIcon={<Avatar src={logo.src} sx={{ width: 64, height: 64 }} />} color="inherit" sx={{ fontSize: '1.5em' }}>
+            <AppBar position="sticky" color='primary'>
+                <Toolbar sx={{ px: '3em !important' }} >
+                    <Button 
+                        component={Link}
+                        href='/'
+                        disableRipple
+                        startIcon={<Avatar src={logo.src} sx={{ width: 48, height: 48 }} />}
+                        sx={{
+                            color: 'primary.contrastText',
+                            fontSize: '1.5rem',
+                            "&.MuiButtonBase-root:hover": {
+                                bgcolor: "transparent"
+                            }
+                        }}>
                         Gió Nam Múa Lân
                     </Button>
-                    <Box display='flex' justifyContent='flex-end' sx={{ flexGrow: 1 }}>
-                        <Button color="inherit">About Us</Button>
-                        <Button color="inherit">History</Button>
-                        <Button color="inherit">Our Pride</Button>
-                        <Button color="inherit">Join Us</Button>
-                        <Button color="inherit">Contact</Button>
+                    <Box display='flex' alignItems='center' justifyContent='flex-end' sx={{ flexGrow: 1 }} >
+                        {headerItems.map((item) => {
+                            return (<AppHeaderItem item={item} />)
+                        })}
+                        
                     </Box>
-
                 </Toolbar>
             </AppBar>
         </Box>

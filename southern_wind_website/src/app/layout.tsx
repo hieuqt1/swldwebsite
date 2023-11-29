@@ -1,9 +1,13 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Quicksand, Luckiest_Guy, Inter } from 'next/font/google'
 import './globals.css'
 import AppHeader from '@/components/AppHeader'
 import AppFooter from '@/components/AppFooter'
+import ThemeRegistry from '@/theme/ThemeRegistry'
+import { StyledEngineProvider } from '@mui/material/styles';
 
+const quicksand = Quicksand({ subsets: ['latin'], variable: '--font-quicksand', display: 'swap' })
+const luckiestGuy = Luckiest_Guy({ subsets: ['latin'], variable: '--font-luckiest-guy', weight: '400', display: 'swap' })
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -18,10 +22,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <AppHeader />
-        {children}
-        <AppFooter />
+      <body className={`${luckiestGuy.variable} ${quicksand.variable}`}>
+        {/* <body className={inter.className}> */}
+          <ThemeRegistry options={{ key: 'mui' }}>
+            <AppHeader />
+            {children}
+            <AppFooter />
+          </ThemeRegistry>
+
+
       </body>
     </html>
   )
